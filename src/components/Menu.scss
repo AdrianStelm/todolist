@@ -1,0 +1,26 @@
+@import "variables";
+
+@mixin menu($width, $position:static, $side:null) {
+    width: $width;
+    background-color: $primary-gray-color;
+    height: 100vh;
+    position: $position;
+
+    @if $side ==right {
+        right: 0;
+        top: 0;
+    }
+    
+    @if $side ==left {
+        left: 0;
+        top: 0;
+    }
+}
+
+.menu{
+    @include menu(20vw,static)   
+}
+
+.menu_task{
+    @include menu(35vw,absolute, right)
+}

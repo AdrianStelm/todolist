@@ -1,0 +1,29 @@
+@mixin button($padding: 15px, $width, $bg, $iconPath: null) {
+    padding: $padding;
+    width: $width;
+    background-color: $bg;
+
+    @if $iconPath !=null {
+        .icon {
+            display: inline-block;
+            margin-right: 15px;
+            background: url($iconPath) center/cover no-repeat;
+            width: 25px;
+            aspect-ratio: 1;
+        }
+
+        display: flex;
+        align-items: center;
+    }
+}
+
+.button_create-task{
+    color: rgb(51, 49, 49);
+    border: none;
+    @include button($width:100%,$bg:transparent,$iconPath:'../assets/icons/plus.svg')
+
+}
+
+
+
+
