@@ -1,27 +1,33 @@
-@mixin button($padding: 15px, $width, $bg, $iconPath: null) {
+@mixin button($padding: 15px, $width, $bg, $hasIcon:false, $roundedSize:null) {
     padding: $padding;
     width: $width;
     background-color: $bg;
 
-    @if $iconPath !=null {
-        .icon {
-            display: inline-block;
-            margin-right: 15px;
-            background: url($iconPath) center/cover no-repeat;
-            width: 25px;
-            aspect-ratio: 1;
-        }
+    @if $roundedSize != null {
+        border-radius: $roundedSize;
+    }
 
-        display: flex;
-        align-items: center;
+    @if $hasIcon != false{
+    display: flex;
+    align-items: center;
     }
 }
+
 
 .button_create-task{
     color: rgb(51, 49, 49);
     border: none;
-    @include button($width:100%,$bg:transparent,$iconPath:'../assets/icons/plus.svg')
+    @include button($width:100%,$bg:transparent, $hasIcon:true)
+}
 
+.button_save-changes{
+    @include button($padding:10px, $width: 15vw, $bg: #ffd43c, $roundedSize:5px);
+    border: none;
+
+}
+
+[class*="button"]{
+    font-weight: 800;
 }
 
 

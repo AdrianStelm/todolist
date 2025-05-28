@@ -1,0 +1,34 @@
+@mixin icon($marginSide: null, $marginSize: null, $iconPath: null, $htmlIcon: false) {
+    @if $iconPath !=null {
+        background: url($iconPath) center/cover no-repeat;
+    }
+
+    @if $htmlIcon !=false {
+        font-size: 25px;
+    }
+
+    @if $marginSide =='right' {
+        margin-right: $marginSize;
+    }
+
+    @if $marginSide =='left' {
+        margin-left: $marginSize;
+    }
+}
+
+
+.close-icon {
+    @include icon($htmlIcon:true)
+}
+
+.add-icon {
+    @include icon($marginSide:'right',$marginSize:15px,$iconPath:'../assets/icons/plus.svg')
+}
+
+[class*="icon"] {
+    display: inline-block ; 
+    cursor: pointer;
+    width: 25px;
+    aspect-ratio: 1;
+}
+

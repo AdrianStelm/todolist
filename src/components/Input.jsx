@@ -1,7 +1,7 @@
 import './Input.scss'
 
-export default function Input({ kind='', type, value, onChange}) {
+export default function Input({ kind='', type, value, onChange, placeholder, minDate}) {
     return (
-        <input type={`${type}`} className={`input${kind}`} value={value} onChange={onChange} />
+        <input min={minDate} type={`${type}`} className={`input${kind}`} value={value} onChange={onChange} placeholder={placeholder} />
     )
 }

@@ -1,0 +1,24 @@
+input{
+    border: none;
+    outline: none;
+    padding: 10px 5px;
+    border-radius: 15px;
+    background-color: transparent;
+}
+
+@mixin input($padding-ver,$padding-hor, $bg:transparent){
+    padding: $padding-ver $padding-hor;
+    background-color: $bg;
+}
+
+.input_title{
+    @include input($padding-ver:10px, $padding-hor:5px)
+}
+
+.input_description{
+    @include input($padding-ver: 10px, $padding-hor: 5px);
+    resize: vertical;
+    min-height: 50px;
+    border: none;
+    outline: none;
+}
