@@ -6,6 +6,9 @@ import ModalWindow from "../components/ModalWindow";
 
 function TaskList() {
     const [isOpen, setOpen] = useState(false); 
+    const [title, setTitle] = useState('');
+    const [desciption, setDescription] = useState('');
+    const [dueDate, setDueDate] = useState('');
 
     const openWindow = () => {
         setOpen(true)
@@ -15,21 +18,36 @@ function TaskList() {
         setOpen(false)
     }
 
-    const existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    const task = {
-        title:'title',
-        desciption:'lorem ipsum jsdnfisudnfisnidfnk',
-        dueDate: new Date(),
-        isDone: false
+    function createTask(title, description, dueDate) {
+        return {
+          title,
+          description,
+          dueDate,
+          isDone: false
+        };
     }
+
+    function saveTask(){
+        const task = createTask(title, desciption, dueDate);
+        const updatedTasks = [...existingTasks, task];
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+        setTitle('')
+        setDescription('')
+        setDueDate('')
+        closeWindow()
+    }
+      
+
+    const existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
     localStorage.setItem("tasks", JSON.stringify(existingTasks));
 
     return (
         <ul>
-            <Button type="_create-task" onOpen={openWindow}> <span className="icon"></span>Add New Task</Button>
-            {isOpen ? <ModalWindow onClose={closeWindow}/> : null}
+            <Button kind="_create-task" onClick={openWindow}> <span className="icon"></span>Add New Task</Button>
+            {isOpen ? <ModalWindow onClose={closeWindow} title={title} setTitle={setTitle} desciption={desciption} setDescription={setDescription} dueDate={dueDate} setDueDate={setDueDate} onSave={saveTask}/> : null}
             {existingTasks.map((value, index) => (
-                <Task title={value.title} description={value.desciption} dueDate={value.dueDate} isDone={value.isDone} key={index} />
+                <Task title={value.title} description={value.description} dueDate={value.dueDate} isDone={value.isDone} key={index} />
             ))}
         </ul>
 
