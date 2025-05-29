@@ -1,15 +1,14 @@
 import Task from "./Task";
 import Button from "../components/Button";
-import { useState } from "react";
+import { useState} from "react";
 import ModalWindow from "../components/ModalWindow";
 import Icon from "../components/Icon";
 
 
-function TaskList() {
+function TaskList({ title, setTitle, description, setDescription, dueDate, setDueDate, onSelectTask, onSaveTask,tasks }) {
     const [isOpen, setOpen] = useState(false); 
-    const [title, setTitle] = useState('');
-    const [desciption, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState('');
+
+    
 
     const openWindow = () => {
         setOpen(true)
@@ -19,36 +18,15 @@ function TaskList() {
         setOpen(false)
     }
 
-    function createTask(title, description, dueDate) {
-        return {
-          title,
-          description,
-          dueDate,
-          isDone: false
-        };
-    }
 
-    function saveTask(){
-        const task = createTask(title, desciption, dueDate);
-        const updatedTasks = [...existingTasks, task];
-        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-        setTitle('')
-        setDescription('')
-        setDueDate('')
-        closeWindow()
-    }
       
-
-    const existingTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-    localStorage.setItem("tasks", JSON.stringify(existingTasks));
 
     return (
         <ul>
             <Button kind="_create-task" onClick={openWindow}> <Icon type='add'></Icon>Add New Task</Button>
-            {isOpen ? <ModalWindow onClose={closeWindow} title={title} setTitle={setTitle} desciption={desciption} setDescription={setDescription} dueDate={dueDate} setDueDate={setDueDate} onSave={saveTask}/> : null}
-            {existingTasks.map((value, index) => (
-                <Task title={value.title} description={value.description} dueDate={value.dueDate} isDone={value.isDone} key={index} />
+            {isOpen ? <ModalWindow onClose={closeWindow} title={title} setTitle={setTitle} description={description} setDescription={setDescription} dueDate={dueDate} setDueDate={setDueDate} onSave={onSaveTask}/> : null}
+            {tasks.map((value, index) => (
+                <Task title={value.title} description={value.description} dueDate={value.dueDate} isDone={value.isDone} key={index} onClick={() =>onSelectTask(value, index)} />
             ))}
         </ul>
 

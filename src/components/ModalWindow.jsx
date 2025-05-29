@@ -4,6 +4,7 @@ import Button from './Button'
 import Icon from './Icon';
 
 export default function ModalWindow({ onClose, title, setTitle, description, setDescription, dueDate, setDueDate, onSave }) {
+    
     function getTodayDate() {
         let year = new Date().getFullYear();
         let month = String(new Date().getMonth() + 1).padStart(2, '0');
@@ -11,6 +12,7 @@ export default function ModalWindow({ onClose, title, setTitle, description, set
 
         return `${year}-${month}-${day}`
     }
+
 
     return (
         <dialog className="modal-window">

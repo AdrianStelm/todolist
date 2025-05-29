@@ -22,5 +22,6 @@
 }
 
 .menu_task{
-    @include menu(35vw,absolute, right)
+    @include menu(35vw,fixed, right)
+
 }

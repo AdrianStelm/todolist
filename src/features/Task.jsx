@@ -1,6 +1,6 @@
-export default function Task({ title, description, dueDate, isDone }) {
+export default function Task({ title, description, dueDate, isDone, onClick }) {
     return (
-        <li>
+        <li onClick={onClick}>
             <h1>{title}</h1>
             <p>{description}</p>
             <time>{dueDate}</time>
