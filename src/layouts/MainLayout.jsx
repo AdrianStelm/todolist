@@ -2,7 +2,7 @@ import Menu from "../components/Menu";
 import TaskList from "../features/TaskList";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 
 
 function MainLayout() {
@@ -12,6 +12,10 @@ function MainLayout() {
     const [dueDate, setDueDate] = useState('');
     const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")) || []);
     const [selectedIndex, setSelectedIndex] = useState(null);
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);
 
 
     const handleSaveTask = () => {
@@ -32,13 +36,21 @@ function MainLayout() {
         }
     
         setTasks(updatedTasks);
-        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     
         setTitle('');
         setDescription('');
         setDueDate('');
         setSelectedIndex(null);
     };
+
+    const deleteTask = (index) => {
+        const updatedTasks = [...tasks]
+        updatedTasks.splice(index, 1)
+        setTasks(updatedTasks)
+        setSelectedIndex(null)
+        setDescription('');
+        setDueDate('');
+    }
       
 
     const handleSelectTask = (task, index) => {
@@ -71,7 +83,7 @@ function MainLayout() {
                 <p>Choose a due date</p>
                 <Button kind='_save-changes' onClick={handleSaveTask}>Save changes</Button>
                 <Input type='date' kind='-edit_date' value={dueDate} onChange={(e) => setDueDate(e.target.value)}></Input>
-
+                <Button kind="_delete-task" onClick={() => deleteTask(selectedIndex)}>Delete task</Button>
             </Menu>
 
             
