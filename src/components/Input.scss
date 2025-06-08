@@ -21,4 +21,19 @@ input{
     min-height: 50px;
     border: none;
     outline: none;
+<<<<<<< HEAD
+=======
+}
+
+.input-edit_title{
+    @include input($padding-ver:10px, $padding-hor:5px)
+}
+
+.input-edit_description{
+    @include input($padding-ver: 10px, $padding-hor: 5px);
+    resize: vertical;
+    min-height: 10vh;
+    border: none;
+    outline: none;
+>>>>>>> 89e4187 (fixed various bugs and improved UI and UX)
 }

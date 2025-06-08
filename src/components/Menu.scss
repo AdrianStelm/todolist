@@ -18,10 +18,49 @@
 }
 
 .menu{
-    @include menu(20vw,static)   
+    @include menu(20vw,fixed, left);
+    background-color: #f8f4f4;
+    height: 100vh;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;   
+}
+
+.menu-hidden{
+    @include menu(3.5vw,fixed, left);
+    background-color: #f8f4f4;
+    height: 100vh;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;   
 }
 
 .menu_task{
-    @include menu(35vw,fixed, right)
+    @include menu(35vw,fixed, right);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 15px;
+    display:flex;
+    flex-wrap: wrap;
+    align-content: space-between;
 
+}
+
+.menu_task-info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.menu_buttons{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 3vh;
 }
