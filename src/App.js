@@ -1,10 +1,13 @@
 import MainLayout from "./layouts/MainLayout";
 import "./components/main.scss";
+import { DateProvider } from './components/ModalWindow';
 
 function App() {
   return (
     <div className="App">
-      <MainLayout></MainLayout>
+      <DateProvider>
+        <MainLayout></MainLayout>
+      </DateProvider>
     </div>
   );
 }

@@ -2,9 +2,23 @@ import './ModalWindow.scss'
 import Input from './Input'
 import Button from './Button'
 import Icon from './Icon';
+import React, { createContext, useContext } from 'react';
 
-export default function ModalWindow({ onClose, title, setTitle, description, setDescription, dueDate, setDueDate, onSave }) {
-    
+const DateContext = createContext();
+
+export const DateProvider = ({ children }) => {
+  const todayDate = getTodayDate();
+
+  return (
+    <DateContext.Provider value={todayDate}>
+      {children}
+    </DateContext.Provider>
+  );
+};
+
+// Хук для споживання
+export const useDate = () => useContext(DateContext);
+
     function getTodayDate() {
         let year = new Date().getFullYear();
         let month = String(new Date().getMonth() + 1).padStart(2, '0');
@@ -14,6 +28,8 @@ export default function ModalWindow({ onClose, title, setTitle, description, set
     }
 
 
+export default function ModalWindow({ onClose, title, setTitle, description, setDescription, dueDate, setDueDate, onSave }) {
+    
     return (
         <dialog className="modal-window">
             <div className="modal-content">
