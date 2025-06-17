@@ -1,24 +1,15 @@
 import Task from "./Task";
 import Button from "../components/Button";
-import { useState} from "react";
 import ModalWindow from "../components/ModalWindow";
 import Icon from "../components/Icon";
 import { useDate } from '../components/ModalWindow';
+import useClose from '../hooks/useClose'
 
 
-function TaskList({ title, setTitle, description, setDescription, dueDate, setDueDate, onSelectTask, onSaveTask,tasks , isShifted }) {
-    const [isOpen, setOpen] = useState(false); 
-    const today = useDate();
-    const todayTasks =  tasks.filter((task) => task.dueDate === today);
-
-    const openWindow = () => {
-        setOpen(true)
-    }
-
-    const closeWindow = () => {
-        setOpen(false)
-    }
-
+function TaskList({ title, setTitle, description, setDescription, dueDate, setDueDate, onSelectTask, onSaveTask, tasks , isShifted, type }) {
+    const {isOpen, openWindow, closeWindow} = useClose(); 
+    const {todayDate, upcomingDate} = useDate();
+    const todayTasks = type === 'upcoming' ?  tasks.filter((task) => task.dueDate > todayDate && task.dueDate <= upcomingDate) : tasks.filter((task) => task.dueDate === todayDate);
     return (
         <ul className={`task_list ${isShifted ? 'task_list-shifted' : ''}`}>
             <h1>Today <span>{todayTasks.length}</span></h1>

@@ -7,23 +7,28 @@ import React, { createContext, useContext } from 'react';
 const DateContext = createContext();
 
 export const DateProvider = ({ children }) => {
-  const todayDate = getTodayDate();
+  const todayDate = getTodayDate();                
+  const upcomingDate = getTodayDate('upcoming'); 
 
   return (
-    <DateContext.Provider value={todayDate}>
+    <DateContext.Provider value={{todayDate, upcomingDate}}>
       {children}
     </DateContext.Provider>
   );
 };
 
-// Хук для споживання
 export const useDate = () => useContext(DateContext);
 
-    function getTodayDate() {
+    function getTodayDate(type) {
         let year = new Date().getFullYear();
+        let day;
         let month = String(new Date().getMonth() + 1).padStart(2, '0');
-        let day = String(new Date().getDate()).padStart(2, '0');
-
+        
+        if (type ==='upcoming'){
+            day = String(new Date().getDate() + 14).padStart(2, '0');
+        } else {
+            day = String(new Date().getDate()).padStart(2, '0');
+        }
         return `${year}-${month}-${day}`
     }
 

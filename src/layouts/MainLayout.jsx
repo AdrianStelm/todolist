@@ -1,7 +1,7 @@
-import TaskList from "../features/TaskList";
 import TaskSideMenu from "../features/TaskSideMenu";
 import SideMenu from "../features/SideMenu";
 import { useState, useEffect } from "react";
+import { Outlet } from "react-router";
 
 function MainLayout() {
   const [title, setTitle] = useState('');
@@ -12,7 +12,6 @@ function MainLayout() {
   const [newDueDate, setNewDueDate] = useState('');
   const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")) || []);
   const [selectedIndex, setSelectedIndex] = useState(null);
-
   const [isOpenTaskMenu, setOpenTaskMenu] = useState(false);
   const [isOpenMenu, setOpenMenu] = useState(true);
 
@@ -88,19 +87,15 @@ function MainLayout() {
   return (
     <>
      <SideMenu isOpen={isOpenMenu} toggle={() => setOpenMenu(!isOpenMenu)} />
-      <TaskList
-        title={title}
-        setTitle={setTitle}
-        description={description}
-        setDescription={setDescription}
-        dueDate={dueDate}
-        setDueDate={setDueDate}
-        onSelectTask={handleSelectTask}
-        onSaveTask={handleSaveTask}
-        tasks={tasks}
-        setTasks={setTasks}
-        isShifted={isOpenMenu}
-      />
+      <Outlet context={{
+        title, setTitle,
+        description, setDescription,
+        dueDate, setDueDate,
+        tasks, setTasks,
+        onSelectTask: handleSelectTask,
+        onSaveTask: handleSaveTask,
+        isShifted: isOpenMenu
+      }} />
 
       <TaskSideMenu
         isOpen={isOpenTaskMenu}
